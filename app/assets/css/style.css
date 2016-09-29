@@ -349,7 +349,8 @@ header:after {
 	padding: .5em;
 	cursor: auto;
 }
-#formAuto input[type="submit"] {
+#formAuto input[type="submit"],
+#logIn button {
 	width: 6em;
 	height: 2.5em;
 	/*line-height: 2.5em;*/
@@ -363,6 +364,19 @@ header:after {
 	border-radius: 5px;
 	box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
 	background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+#logIn button>a{
+	/*display: block;*/
+	/*width: 100%;*/
+	/*height: 100%;*/
+	color: white;
+	text-decoration: none;
+}
+#logIn button{
+	height: 1.5em;
+	float: right;
+	margin-top: 0.3em;
 }
 
 #logOut {
