@@ -1,0 +1,485 @@
+/*======================================================/
+/----------------------main-----------------------------/
+/======================================================*/
+
+* {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: .5em;
+	background: url(../images/main-fon.png);
+	/*background: url(../images/Asphalt.jpg);*/
+	
+	/*color: rgba(0, 0, 0, .7);*/
+	font-size: 100%;
+	position: relative;
+}
+
+.container {
+	margin: 0 auto;
+	width: 960px;
+}
+
+.hide {
+	display: none !important;
+}
+
+/*#autorization {*/
+/*	position: relative;*/
+/*	display: inline-block;*/
+/*	margin-right: 2em;*/
+/*	vertical-align: middle;*/
+/*	text-align: center;*/
+/*	text-decoration: none;*/
+/*	outline: none;*/
+/*	font-size: small;*/
+/*}*/
+
+input,
+button,
+#square,
+#profile .changeBirthday:after {
+	cursor: pointer;
+}
+
+header nav {
+	float: left;
+}
+
+li>button {
+	position: relative;
+	display: inline-block;
+	float: left;
+	margin-right: 2em;
+	width: 10em;
+	height: 2.5em;
+	line-height: 2.5em;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px #777;
+	color: #fff;
+	outline: none;
+	border: 2px solid #F64C2B;
+	border-radius: 5px;
+	box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+	background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+li>button:active {
+	top: .1em;
+	left: .1em;
+	box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
+}
+
+li>button>a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: white;
+	text-decoration: none;
+}
+
+#pages>li {
+	display: inline-block;
+	list-style-type: none;
+}
+
+#pages {
+	padding-top: 2em;
+	padding-bottom: 2em;
+}
+
+.active {
+	color: black;
+}
+
+/*===========================================/
+/------------------rules---------------------/
+/===========================================*/
+
+#rules h2 {
+	padding: 20px 0;
+	text-align: center;
+}
+
+#rules img {
+	width: 400px;
+	height: 300px;
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+#rules p {
+	margin: 13px 0;
+	text-align: justify;
+	text-indent: 30px;
+}
+
+/*============================================/
+/-----------------profile---------------------/
+/============================================*/
+
+#profile {
+	font-size: 18px;
+	padding: 30px 0;
+}
+
+#profile:after,
+#profile .container:after,
+#profile:before,
+#profile .container:before,
+header:before,
+header:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+#profile .container {
+	max-width: 500px;
+	border: 1px solid #000;
+	border-radius: 10px;
+	box-shadow: 0 0 25px 1px rgba(0, 0, 0, .4);
+	padding: 20px;
+}
+
+#profile .changeBirthday:after {
+	content: '🖉';
+	float: right;
+	font-size: 18px;
+	margin: -2px 5px 0 0;
+}
+
+#profile #datepicker {
+	width: 0;
+	border: none;
+}
+
+#profileAvatar {
+	margin: 20px 20px 30px 20px;
+	width: 130px;
+	height: 130px;
+	display: block;
+	position: relative;
+}
+
+#profileAvatar:after {
+	content: '';
+	display: block;
+	height: 100%; 
+	background: url('../images/avatars_full.png') no-repeat;
+	z-index: 10;
+	border-radius: 65px;
+}
+
+#profile .avatar {
+	float: left;
+	text-align: center;
+}
+
+#changeAvatar {
+	padding: 4px;
+	border-radius: 7px;
+	border: 1px solid #999;
+	cursor: pointer;
+	background-color: #f7f7fb;
+	font-size: 14px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+}
+
+#changeAvatar,
+#changeAvatar:active,
+#changeAvatar:focus,
+#profile #datepicker,
+#profile #datepicker:active,
+#profile #datepicker:focus {
+	outline: none;
+}
+
+#changeAvatar:active {
+	background-color: #dce0ea;
+	padding: 3px;
+	box-shadow: 0 0 0 0 #fff;
+	margin-bottom: 2px;
+}
+
+#profile .info {
+	margin-left: 175px;
+}
+
+#profile .row {
+	padding: 5px;
+}
+
+#profile .descr {
+	width: 90px;
+	text-align: right;
+	font-size: 14px
+}
+
+#profile .descr2 {
+	font-style: italic;
+	margin-left: 5px;
+}
+
+#changeColor {
+	margin-left: 60px;
+}
+
+#profile .descr,
+#profile .descr2 {
+	display: inline-block;
+}
+
+#profileEmail {
+	font-size: 12px;
+}
+
+#profile .row h4 {
+	text-align: center;
+	margin: 5px 0 20px;
+	font-size: 24px;
+}
+
+
+/*=======================================================/
+/--------------------registration------------------------/
+/=======================================================*/
+
+#formRegistr {
+	width: 50%;
+	border: 1px solid #000;
+	border-radius: 10px;
+	box-shadow: 0 0 25px 1px rgba(0, 0, 0, .4);
+	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+}
+
+#formRegistr>h4 {
+	text-align: center;
+	text-transform: uppercase;
+	padding-bottom: 1em;
+}
+
+#formRegistr label {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 600;
+	font-size: 0.9em;
+	margin-bottom: 5px;
+	line-height: 20px;
+}
+
+#formRegistr input[type="text"],
+#formRegistr input[type="email"] {
+	float: right;
+	width: 100%;
+	box-shadow: none;
+	border-radius: 0;
+	border: 2px #e8e8e8 solid;
+	height: 3em;
+	padding: 10px;
+	box-sizing: border-box;
+	display: inline-block;
+	clear: both;
+	font-size: 14px;
+	line-height: 20px;
+	color: #555;
+	vertical-align: middle;
+	cursor: auto;
+}
+
+#formRegistr input[type="text"]:focus,
+#formRegistr input[type="email"]:focus {
+	outline: none;
+	box-shadow: none;
+	border-color: #555052;
+}
+
+#formRegistr input[type="submit"]:hover {
+	color: #555052;
+	background: #e8e8e8;
+	outline: none;
+}
+
+#formRegistr input[type="submit"] {
+	color: white;
+	background: #555052;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	letter-spacing: 1px;
+	font-weight: 600;
+	/*float: right;*/
+	border: none;
+	/*text-align: center;*/
+	/*display: block;*/
+	padding: 13px 25px 12px;
+	border-radius: 10px;
+	transition: background 0.2s ease, color 0.2s ease;
+	/*width: auto;*/
+	/*line-height: 20px;*/
+	vertical-align: middle;
+	margin-top: 1em;
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
+}
+
+
+/*=======================================================/
+/--------------------authorization-----------------------/
+/=======================================================*/
+
+#autorization {
+	float: right;
+	/*margin-top: -1.5em;*/
+	border: 1px solid red;
+}
+
+#autorization label>input {
+	width: 8em;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: .5em;
+	margin: .3em;
+	padding: .5em;
+	cursor: auto;
+}
+#formAuto input[type="submit"] {
+	width: 6em;
+	height: 2.5em;
+	/*line-height: 2.5em;*/
+	/*vertical-align: middle;*/
+	/*text-align: center;*/
+	/*text-decoration: none;*/
+	text-shadow: 0 -1px 1px #777;
+	color: #fff;
+	outline: none;
+	border: 2px solid #F64C2B;
+	border-radius: 5px;
+	box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+	background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+#logOut {
+	width: 6em;
+	padding: .5em;
+}
+
+#formAuto input[type="submit"]:active {
+	top: .1em;
+	left: .1em;
+	box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
+}
+
+#formAuto p{
+	text-align: center;
+	padding-bottom: 0.7em;
+	padding-top: 0.7em;
+}
+
+
+/*=======================================================/
+/--------------------game field--------------------------/
+/=======================================================*/
+
+#console {
+	float: left;
+	padding: 20px;
+}
+
+#info {
+	font-size: 12px;
+	padding: 20px;
+	border: 1px dashed red;
+	max-height: 200px;
+	overflow: hidden;
+}
+
+#field:after,
+#field .container:after,
+#field:before,
+#field .container:before {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+.error {
+	border: 1.5px solid red;
+}
+
+#square {
+	position: relative;
+	border: 10px dashed black;
+	box-shadow: 0 0 10px 0px black;
+	width: 400px;
+	height: 400px;
+	float: left;
+}
+
+#square .player {
+	display: inline-block;
+	padding: 10px;
+	width: 200px;
+	height: 200px;
+	box-sizing: border-box;
+	position: absolute;
+	font-family: Arial;
+	font-size: 14px;
+}
+
+#square .green {
+	background-color: #6bfc00;
+	color: #002ffc;
+}
+
+#square .red {
+	background-color: #ff2b01;
+	color: #fcff01;
+}
+
+#square .yellow {
+	background-color: #fff833;
+	color: #ff3363;
+}
+
+#square .blue {
+	background-color: #167eff;
+	color: #fcff16;
+}
+
+#square .player:nth-of-type(1) {
+	left: 0px;
+	top: 0px;
+}
+
+#square .player:nth-of-type(2) {
+	left: 200px;
+	top: 0px;
+}
+
+#square .player:nth-of-type(3) {
+	left: 0px;
+	top: 200px;
+}
+
+#square .player:nth-of-type(4) {
+	left: 200px;
+	top: 200px;
+}
+
+#square .ball {
+	width: 40px;
+	height: 40px;
+	background-image: url(../images/ball.png);
+	background-size: contain;
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	z-index: 10;
+}

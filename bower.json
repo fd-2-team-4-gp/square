@@ -1,0 +1,21 @@
+{
+  "name": "spa",
+  "description": "SPA project",
+  "main": "gulpfile.js",
+  "authors": [
+    "fd-2-team4-gp"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1"
+  }
+}

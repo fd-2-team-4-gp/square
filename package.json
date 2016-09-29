@@ -1,0 +1,29 @@
+{
+  "name": "square",
+  "version": "1.0.0",
+  "description": "project",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexeikasiuk/square.git"
+  },
+  "author": "alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexeikasiuk/square/issues"
+  },
+  "homepage": "https://github.com/alexeikasiuk/square#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.5.0",
+    "bower": "^1.7.9",
+    "browser-sync": "^2.16.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-rigger": "^0.5.8"
+  }
+}
