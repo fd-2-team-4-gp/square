@@ -113,6 +113,8 @@ app.currentModule = (function($) {
                 user.lastName = lastName.val();
                 user.age = birth_date;
                 user.gender = gender.val();
+                user.avatar = 0;
+                user.color = "green";
 
                 Backendless.UserService.register(user, new Backendless.Async(userRegistered, gotError));
             })

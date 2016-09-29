@@ -1,8 +1,10 @@
 <div id='profile'>
   <div class='container'>
     <div class='avatar'>
-      <div id='profileAvatar' alt='avatar'></div>
-      <button id='changeAvatar' title='сменить аватарку'>Сменить аватар</button>
+      <div id='profileAvatar' alt='avatar'>
+        <div id='imgForAvatar'></div>
+      </div>
+      <button id='changeAvatar'  class='noOutline' >Сменить аватар</button>
     </div>
     <div class='info'>
       <div class='row'>
@@ -23,9 +25,9 @@
         <div class='descr'>Возраст: </div>
         <div class='descr2' id='profileAge'></div>
         <label class='changeBirthday' title='изменить дату рождения'>
-           <input id='datepicker' type="text" name=""/>
+           <input id='datepicker' class='noOutline' type="text" name=""/>
         </label>
-       
+
       </div>
       <hr>
       <div class='row'>
@@ -41,6 +43,14 @@
       </div>
       <hr>
     </div>
-    <div id='testp'></div>
+    <div id="dialog" class='hide'>
+      <div class='modal'>
+        <div class ='chooseAvatars' id='a0'></div>
+        <div class ='chooseAvatars' id='a1'></div>
+        <div class ='chooseAvatars' id='a2'></div>
+        <div class ='chooseAvatars' id='a3'></div>
+        <button class='close noOutline'>&times;</button>
+      </div>
+    </div>
   </div>
 </div>

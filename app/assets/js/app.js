@@ -7,6 +7,11 @@ var app = (function($, cont) {
         v: 'v1'
     }
 
+    var coordMini = {
+        m: ['-600px 0', '-653px 0', '-704px 0', '-756px 0'],
+        w: ['-600px -63px', '-653px -63px', '-704px -63px', '-756px -63px']
+    }
+
     Backendless.initApp(config.id, config.key, config.v);
 
     var loggedInUser = Backendless.UserService.loggedInUser();
@@ -20,6 +25,7 @@ var app = (function($, cont) {
         $('#user').html(currentUser.name + " " + currentUser.lastName);
         $('#btnProfile, #btnField, #logIn').removeClass('hide');
         $('#formAuto').addClass('hide');
+        $('#miniAvatar').css('background-position', coordMini[currentUser.gender][currentUser.avatar]);
     }
 
     $("#formAuto").on('submit', sendData);
