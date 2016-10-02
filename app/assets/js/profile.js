@@ -1,14 +1,7 @@
 app.currentModule = (function($) {
-    //используем для связи с backendless
-    var config = {
-        url: 'https://api.backendless.com/v1/data/Users',
-        id: 'DCE54221-04BE-2940-FF08-14B2BC0FFC00',
-        key: 'E8FCB4B6-2D60-EA57-FF4B-2880988EE300',
-        v: 'v1'
-    }
     return {
         init: function(obj, callback) {
-            console.log("Инициализируем модуль для профиля");
+            // console.log("Инициализируем модуль для профиля");
             obj = obj || new Object(null);
             callback = callback || function() {
                 return false;
@@ -24,10 +17,12 @@ app.currentModule = (function($) {
             }
 
             var currentUser = Backendless.UserService.getCurrentUser();
-            var userToken = Backendless.LocalCache.get("user-token");
 
-            //всплывающая подсказка(работает сос всеми элементами, у кого есть атрибут "title")
             $(document).tooltip();
+
+            $(obj).find("#datepicker")
+                .removeClass("hasDatepicker")
+                .datepicker("destroy");
 
             $(".changeBirthday").tooltip({
                 position: {
@@ -39,28 +34,8 @@ app.currentModule = (function($) {
             // var position = $( "#BotChangeSurname" ).tooltip( "option", "position" );
             // console.log(position);
 
-            // предварительно удаляем обработчик событий (баг - при переходе по пунктам меню перестаёт срабатывать вилджет datapicker) 
-            $(obj).find("#datepicker")
-                .removeClass("hasDatepicker")
-                .datepicker("destroy");
-
-            //данный пользователя(авторизированного)
-            var currentUser = Backendless.UserService.getCurrentUser();
-            var userToken = Backendless.LocalCache.get("user-token");
-            console.log(currentUser);
-            //на сервере, дата рождения в милисекундах, высчитываем количество полных лет относительно текучего времени
-
             var age = Math.floor((new Date() - currentUser.age) / 3.1536e10);
             var gender = currentUser.gender;
-            console.log(currentUser.avatar);
-
-
-            $(document).tooltip();
-            $(obj).find("#datepicker")
-                .removeClass("hasDatepicker")
-                .datepicker("destroy");
-
-            //заносим данные авторизированного игрока в профиль 
 
             $(obj).find('#profileAvatar').css('background-color', currentUser.color);
             $(obj).find('#imgForAvatar').css('background-position', coord[gender][currentUser.avatar]);
@@ -73,16 +48,9 @@ app.currentModule = (function($) {
             $(obj).find('#changeColor').css('background-color', currentUser.color);
             $(obj).find('#changeColor').css('color', currentUser.color);
 
-            //ставим обработчик на кнопку изменения автара            
-            $(obj).find('#changeAvatar').on('click', changeAvatar);
-            $(obj).find('#dialog button').on('click', hideDialog);
-            $(obj).find('#changeColor').on('change', changeColor);
-            $(obj).find("#datepicker").datepicker({
-                changeYear: true,
-                yearRange: "1920:" + new Date().getFullYear()
-            }).on('change', changeUserBirthday);
+            // изменение аватарки
 
-            // будущий функционал изменения аватара
+            $(obj).find('#changeAvatar').on('click', changeAvatar);
 
             function changeAvatar(e) {
                 e.preventDefault();
@@ -91,18 +59,16 @@ app.currentModule = (function($) {
                     $(this).on('click', function() {
                         currentUser.avatar = i;
 
-                        Backendless.enablePromises();
+                        Backendless.UserService.update(currentUser, new Backendless.Async(userUpdated, gotError));
 
-                        Backendless.UserService.update(currentUser).then(success).catch(gotError);
 
-                        function success(user) {
+                        function userUpdated(user) {
                             $(obj).find('#imgForAvatar').css('background-position', coord[user.gender][user.avatar]);
                             $('#miniAvatar').css('background-position', coordMini[user.gender][user.avatar]);
                         }
 
                         function gotError(err) {
-                            console.log("error message - " + err.message);
-                            console.log("error code - " + err.statusCode);
+                            console.log("fail update!\nerror message - " + err.message + "\nerror code - " + err.statusCode);
                         }
 
                         $("#dialog").addClass('hide');
@@ -110,37 +76,37 @@ app.currentModule = (function($) {
                 });
                 $("#dialog").removeClass('hide');
             }
+            
+            // закрытие модального окна выбора аватарки
 
+            $(obj).find('#dialog button').on('click', hideDialog);
+                        
             function hideDialog(e) {
                 $(obj).find("#dialog").addClass('hide');
             }
 
-            //ставим обработчик на кнопку выбора цвета
+            // изменение цвета поля
+
             $(obj).find('#changeColor').on('change', changeColor);
 
-            //выбираем цвет поля игрока
             function changeColor(e) {
-                //меняем значение свойства age пользователя currentUser                
                 currentUser.color = $(this).val();
 
-                Backendless.enablePromises();
-                // отправляем запрос на обновление свойств currentUser
-                Backendless.UserService.update(currentUser).then(success).catch(gotError);
-                // если запрос прошёл удачно, обновляем HTML данные профиля               
+                Backendless.UserService.update(currentUser, new Backendless.Async(userUpdated, gotError));
 
-                function success(user) {
+                function userUpdated(user) {
                     $(obj).find('#profileAvatar').css('background-color', currentUser.color);
                     $(obj).find('#changeColor').css('background-color', currentUser.color);
                     $(obj).find('#changeColor').css('color', currentUser.color);
                 }
 
                 function gotError(err) {
-                    console.log("error message - " + err.message);
-                    console.log("error code - " + err.statusCode);
+                    console.log("fail update!\nerror message - " + err.message + "\nerror code - " + err.statusCode);
                 }
             }
 
-            //вилджет календаря
+            // изменение дня рождения
+            
             $(obj).find("#datepicker").datepicker({
                 changeYear: true,
                 yearRange: "1920:" + new Date().getFullYear()
@@ -148,83 +114,79 @@ app.currentModule = (function($) {
 
             function changeUserBirthday(e) {
 
-                Backendless.enablePromises();
-
-
                 currentUser.age = new Date($(this).val()).getTime();
 
-                function success(user) {
+                Backendless.UserService.update(currentUser, new Backendless.Async(userUpdated, gotError));
+
+                function userUpdated(user) {
                     $(obj).find('#profileAge').html(Math.floor((new Date() - user.age) / 3.1536e10));
-                    console.log(Math.floor((new Date() - user.age) / 3.1536e10));
                 }
 
                 function gotError(err) {
-                    console.log("error message - " + err.message);
-                    console.log("error code - " + err.statusCode);
+                    console.log("fail update!\nerror message - " + err.message + "\nerror code - " + err.statusCode);
                 }
-
-                Backendless.UserService.update(currentUser).then(success).catch(gotError);
             }
 
             // смена фамилии
 
             $(obj).find("#BotChangeSurname").on('click', function() {
-
-                // var position = $("#BotChangeSurname").tooltip("position");
-                // console.log(position);
-
-                console.log('смена фамилии');
                 $("#changeSurname").css("display", "inline");
                 $("#profileSurname").css("display", "none");
             });
 
             $(obj).find("#changeSurname").on('change', changeUserSurname);
 
-            function changeUserSurname(e) {
-                Backendless.enablePromises();
-                currentUser.lastName = new $(this).val();
-
-                function success(user) {
-                    $(obj).find('#profileSurname').html(currentUser.lastName);
-                    console.log(currentUser.lastName);
-                }
+            $(obj).find("#changeSurname").on('blur', function() {
                 $("#changeSurname").css("display", "none");
                 $("#profileSurname").css("display", "inline");
+            });
 
-                function gotError(err) {
-                    console.log("error message - " + err.message);
-                    console.log("error code - " + err.statusCode);
+            function changeUserSurname(e) {
+
+                currentUser.lastName = new $(this).val();
+
+                Backendless.UserService.update(currentUser, new Backendless.Async(userUpdated, gotError));
+
+                function userUpdated(user) {
+                    $(obj).find('#profileSurname').html(currentUser.lastName);
+                    $("#changeSurname").css("display", "none");
+                    $("#profileSurname").css("display", "inline");
                 }
 
-                Backendless.UserService.update(currentUser).then(success).catch(gotError);
+                function gotError(err) {
+                    console.log("fail update!\nerror message - " + err.message + "\nerror code - " + err.statusCode);
+                }
             }
 
-            //смена имени
+            // смена имени
 
             $(obj).find("#BotChangeName").on('click', function() {
-                console.log('gydewgyfcuhs');
                 $("#changeName").css("display", "inline");
                 $("#profileName").css("display", "none");
+            });
+
+            $(obj).find("#changeName").on('blur', function() {
+                $("#changeName").css("display", "none");
+                $("#profileName").css("display", "inline");
             });
 
             $(obj).find("#changeName").on('change', changeUserName);
 
             function changeUserName(e) {
-                Backendless.enablePromises();
+
                 currentUser.name = new $(this).val();
 
-                function success(user) {
+                Backendless.UserService.update(currentUser, new Backendless.Async(userUpdated, gotError));
+
+                function userUpdated(user) {
                     $(obj).find('#profileName').html(currentUser.name);
-                    console.log(currentUser.name);
+                    $("#changeName").css("display", "none");
+                    $("#profileName").css("display", "inline");
                 }
-                $("#changeName").css("display", "none");
-                $("#profileName").css("display", "inline");
 
                 function gotError(err) {
-                    console.log("error message - " + err.message);
-                    console.log("error code - " + err.statusCode);
+                    console.log("fail update!\nerror message - " + err.message + "\nerror code - " + err.statusCode);
                 }
-                Backendless.UserService.update(currentUser).then(success).catch(gotError);
             }
             callback();
         }

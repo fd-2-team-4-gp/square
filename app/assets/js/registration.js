@@ -1,21 +1,10 @@
 app.currentModule = (function($) {
-
-    var config = {
-        url: 'https://api.backendless.com/v1/data/Users',
-        id: 'DCE54221-04BE-2940-FF08-14B2BC0FFC00',
-        key: 'E8FCB4B6-2D60-EA57-FF4B-2880988EE300',
-        v: 'v1'
-    }
-
     return {
         init: function(obj, callback) {
-            console.log("Инициализируем модуль для формы");
             obj = obj || new Object(null);
             callback = callback || function() {
                 return false;
             }
-
-            Backendless.initApp(config.id, config.key, config.v);
 
             var dp = obj.find("#datepicker");
             dp.datepicker({
@@ -30,11 +19,20 @@ app.currentModule = (function($) {
             var lastName = obj.find("#lname");
             var age = obj.find("#datepicker");
             var gender = obj.find("#gender");
-            var agg = obj.find("#agg");
-
+            
+            
+            obj.find(".close").on('click', closeModal);
+            
+            function closeModal() {
+                $(obj).find('#formRegistr').on('submit', function(e){
+                    e.preventDefault();                    
+                });
+                $(obj).find('#formRegistr')[0].reset();
+                window.location.hash = '#/';
+            }
+            
             obj.find("#registrBtn").click(function(e) {
                 e.preventDefault();
-                Backendless.initApp(config.id, config.key, config.v);
 
                 var d = dp.val();
                 var birth_date = d.split('.');
@@ -42,11 +40,11 @@ app.currentModule = (function($) {
                 birth_date = birth_date.getTime();
 
                 function userRegistered(user) {
-                    alert("User has been registered! Please log in.");
+                    alert("Поздравляем с регистрирацией!");
                     obj.find('input[type=text]').each(function(i, el) {
                         $(el).val("");
                     });
-                    location = "#/";
+                    window.location.hash = "#/";
                 }
 
                 function gotError() {
@@ -117,8 +115,8 @@ app.currentModule = (function($) {
                 user.color = "green";
 
                 Backendless.UserService.register(user, new Backendless.Async(userRegistered, gotError));
-            })
-            console.log();
+            });
+        
             obj.find('input[type=text]').each(function(i, el) {
                 $(el).focusin(function() {
                     $('span[name="' + $(this).attr("name") + "sp" + '"]').remove();

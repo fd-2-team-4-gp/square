@@ -256,24 +256,6 @@ header:after {
 	box-shadow: 0 0 2px 2px blue;
 }
 
-/*#a0 {*/
-/*	background-position: -2px -2px;*/
-/*}*/
-
-/*#a1 {*/
-/*	background-position: -160px -2px;*/
-/*}*/
-
-
-/*#a2 {*/
-/*	background-position: -320px -2px;*/
-/*}*/
-
-
-/*#a3 {*/
-/*	background-position: -475px -2px;*/
-/*}*/
-
 #changeAvatar {
 	padding: 4px;
 	border-radius: 7px;
@@ -339,6 +321,10 @@ header:after {
 /*=======================================================/
 /--------------------registration------------------------/
 /=======================================================*/
+
+.reg {
+	position: relative;
+}
 
 #formRegistr {
 	width: 50%;
