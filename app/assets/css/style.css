@@ -31,16 +31,7 @@ body {
 	display: none !important;
 }
 
-/*#autorization {*/
-/*	position: relative;*/
-/*	display: inline-block;*/
-/*	margin-right: 2em;*/
-/*	vertical-align: middle;*/
-/*	text-align: center;*/
-/*	text-decoration: none;*/
-/*	outline: none;*/
-/*	font-size: small;*/
-/*}*/
+
 
 input,
 button,
@@ -405,6 +396,12 @@ header:after {
 	/*margin-left: auto;*/
 	/*margin-right: auto;*/
 }
+#formRegistr input[type="radio"]{
+	margin-left: 10px;
+}
+/*#gender {*/
+/*	margin-top: 30px;*/
+/*} */
 
 
 /*=======================================================/
@@ -526,6 +523,9 @@ header:after {
 
 .error {
 	border: 1.5px solid red;
+}
+.errMess {
+	font-size: smaller;
 }
 
 #square {
