@@ -6,6 +6,8 @@ app.currentModule = (function($) {
             callback = callback || function() {
                 return false;
             }
+            
+            app.getAvatar();
 
             var coord = {
                 m: ['-2px -2px', '-160px -2px', '-320px -2px', '-475px -2px'],

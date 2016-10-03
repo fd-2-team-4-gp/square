@@ -1,6 +1,40 @@
 <div id="field">
     <div class='container'>
         <div id='square'></div>
+        <div id='fields'>
+            <table id='infoGame'>
+                <tbody>
+                    <tr>
+                        <td>Игрок</td>
+                        <td id='user1'>user1</td>
+                        <td id='user2'>user2</td>
+                        <td id='user3'>user3</td>
+                        <td id='user4'>user4</td>
+                    </tr>
+                    <tr>
+                        <td>Голов</td>
+                        <td id='goal1'>0</td>
+                        <td id='goal2'>0</td>
+                        <td id='goal3'>0</td>
+                        <td id='goal4'>0</td>
+                    </tr>
+                    <tr>
+                        <td colspan='5'>
+                            <span>игра до </span>
+                            <span id='maxGoal'>?</span>
+                            <span> голов</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id='editField'>
+                <div class='btnField'>
+                    <button id='createField' >новое поле</button>
+                    <button id='showAllFields' >выбор поля</button>
+                </div>
+                <div id='resultFields'></div>
+            </div>
+        </div>
         <div id='console'>
             <button id='startGame'>Начать игру!</button>
             <div id='info'></<div>

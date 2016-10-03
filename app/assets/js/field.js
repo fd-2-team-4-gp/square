@@ -1,165 +1,227 @@
 app.currentModule = (function($) {
+    var gameConfig = {
+        url: 'https://api.backendless.com/v1/data/game'
+    };
+    
     return {
         init: function(obj, callback) {
-            // console.log("Инициализируем модуль поля");
+            //console.log("Инициализируем модуль поля");
             obj = obj || new Object(null);
             callback = callback || function() {
                 // return false;
             }
+            
+            app.getAvatar();
 
-            // var square = $(obj).find('#square');
-            // var mess = $(obj).find('#info');
+            var id = Backendless.UserService.getCurrentUser().objectId;
+            //показать все поля, созданные текущим игроком       
+            
+            $(obj).find("#showAllFields").on('click', function(e) {
+                // console.log(app.conf);
+                $.ajax({
+                    url: gameConfig.url,
+                    method: "GET",
+                    dataType: "json",
+                    headers: {
+                        "application-id": app.conf.id,
+                        "secret-key": app.conf.key
+                    },
+                    success: getUserFields,
+                    error: function(xhRequest, ErrorText, thrownError) {
+                        console.log(xhRequest, ErrorText, thrownError);
+                    },
+                });
+            });
 
-            // function Player(name, colour, avatar) {
-            //     var _self = this;
+            function getUserFields(data) {
+                fields = data.data;
+                var userFields = fields.filter(function(item) {
+                    return item.ownerId === id;
+                });
 
-            //     this.avatar = avatar;
-            //     this.name = name;
-            //     this.colour = colour;
-            //     this.count = 0;
-            //     this.goal = 0;
+                userFields.forEach(function(item, i, arr) {
+                    var field = $('<div data-id="' + item.objectId + '" id="f' + i + '">поле ' + i + '</div>').on('click', function(e){ console.log(e.target) });
+                    $('#resultFields').append(field);
+                });
+            }
 
-            //     this.punch = function() {
+            //создать новое поле
+            
+            $(obj).find("#createField").on('click', function(e) {
+                var count = prompt('До скольки голов будем играть?', '5');
 
-            //         if (this.ball) {
-            //             var playerId = Math.ceil(Math.random() * this.players.length) - 1;
-            //             this.ball = false;
+                function game(args) {};
 
-            //             if (Math.random() * 2 > 1) {
-            //                 field.players[playerId].addGoal();
-            //                 this.addCount();
-            //                 field.started = false;
-            //             }
-            //             else {
-            //                 field.players[playerId].getBall();
-            //             }
-            //         }
-            //     }
-            //     this.ball = false;
+                var contactObject = new game({
+                    maxGoal: count
+                });
 
-            //     this.getBall = function() {
-            //         this.ball = true
-            //     };
+                var newfield = Backendless.Persistence.of(game).save(contactObject);
+                var field = $('<div id="' + newfield.objectId + '">поле ' + '</div>');
+                $('#resultFields').html('');
+                $('#resultFields').append(field);
+            });
 
-            //     this.addCount = function() {
-            //         this.count++
-            //     };
+            function showNewField(data) {
 
-            //     this.addGoal = function() {
-            //         this.goal++
-            //     };
+                var field = $('<div id="' + data.objectId + '">поле ' + data.name + '</div>');
+                $('#resultFields').append(field);
 
-            //     this.render = function(index) {
-            //         var ball = '';
+            }
+        
+            var square = $(obj).find('#square');
+            var mess = $(obj).find('#info');
 
-            //         if (this.ball) {
-            //             ball = '<div class="ball"></div>';
-            //         }
+            function Player(name, colour, avatar) {
+                var _self = this;
 
-            //         var result = [
-            //             '<div class="player ',
-            //             this.colour,
-            //             '" data-index="',
-            //             index,
-            //             '"><img src="',
-            //             this.avatar,
-            //             '"><br>',
-            //             this.name,
-            //             ball,
-            //             '</div>'
-            //         ];
+                this.avatar = avatar;
+                this.name = name;
+                this.colour = colour;
+                this.count = 0;
+                this.goal = 0;
 
-            //         return result.join('');
-            //     };
+                this.punch = function() {
 
-            //     this.click = function(e, obj) {
-            //         console.log(e, obj);
-            //         obj = obj || this.field;
-            //         console.log(this.field);
+                    if (this.ball) {
+                        var playerId = Math.ceil(Math.random() * this.players.length) - 1;
+                        this.ball = false;
 
-            //         obj.players.forEach(function(p) {
-            //             p.ball = false;
-            //         });
+                        if (Math.random() * 2 > 1) {
+                            field.players[playerId].addGoal();
+                            this.addCount();
+                            field.started = false;
+                        }
+                        else {
+                            field.players[playerId].getBall();
+                        }
+                    }
+                }
+                this.ball = false;
 
-            //         _self.getBall();
-            //         obj.render();
-            //         mess.innerHTML = 'мяч у меня!' + _self.name;
-            //     };
-            // };
+                this.getBall = function() {
+                    this.ball = true
+                };
 
-            // function Field(players, obj) {
-            //     this.players = players;
-            //     this.domObj = obj;
-            //     this.started = false;
+                this.addCount = function() {
+                    this.count++
+                };
 
-            //     this.render2 = function() {
-            //         var _self = this;
-            //         var result = this.players.map(
-            //             function(p, index) {
-            //                 return p.render(index);
-            //             }
-            //         ).join('');
+                this.addGoal = function() {
+                    this.goal++
+                };
 
-            //         this.domObj.innerHTML = result;
+                this.render = function(index) {
+                    var ball = '';
 
-            //         var domPlayers = document.getElementsByClassName('player');
+                    if (this.ball) {
+                        ball = '<div class="ball"></div>';
+                    }
 
-            //         for (var i = 0; i < domPlayers.length; i++) {
-            //             domPlayers[i].addEventListener('click', function(_i, _f) {
-            //                 return function() {
-            //                     _f.players[_i].click(_i, _f);
-            //                 };
-            //             }(i, _self));
-            //         }
-            //     };
+                    var result = [
+                        '<div class="player ',
+                        this.colour,
+                        '" data-index="',
+                        index,
+                        '"><img src="',
+                        this.avatar,
+                        '"><br>',
+                        this.name,
+                        ball,
+                        '</div>'
+                    ];
 
-            //     this.render = function() {
-            //         var _self = this;
+                    return result.join('');
+                };
 
-            //         var result = this.players.map(
-            //             function(p, index) {
-            //                 return p.render(index);
-            //             }
-            //         ).join('');
+                this.click = function(e, obj) {
+                    console.log(e, obj);
+                    obj = obj || this.field;
+                    console.log(this.field);
 
-            //         this.domObj.html(result);
+                    obj.players.forEach(function(p) {
+                        p.ball = false;
+                    });
 
-            //         var domPlayers = document.getElementsByClassName('player');
+                    _self.getBall();
+                    obj.render();
+                    mess.innerHTML = 'мяч у меня!' + _self.name;
+                };
+            };
 
-            //         for (var i = 0; i < domPlayers.length; i++) {
-            //             domPlayers[i].addEventListener('click', {
-            //                 handleEvent: this.players[i].click,
-            //                 field: _self
-            //             });
-            //         }
-            //     };
+            function Field(players, obj) {
+                this.players = players;
+                this.domObj = obj;
+                this.started = false;
 
-            //     this.start = function() {
-            //         if (!this.started) {
-            //             var p_Id = Math.ceil(Math.random() * this.players.length) - 1;
-            //             this.started = true;
-            //             this.players[p_Id].getBall();
-            //             mess.prepend('<div>--начнём с id = "' + p_Id + '</div>');
-            //         }
-            //         else {
-            //             mess.prepend('<div>--Игра уже идет!!!!!!!!!!!!!!!!</div>');
-            //         }
-            //         console.log("начнём с id = " + p_Id);
-            //         this.render();
-            //     }
-            // }
+                this.render2 = function() {
+                    var _self = this;
+                    var result = this.players.map(
+                        function(p, index) {
+                            return p.render(index);
+                        }
+                    ).join('');
 
-            // var p1 = new Player('Cap', 'green', 'assets/images/cap.png');
-            // var p2 = new Player('IronMan', 'red', 'assets/images/ironman.png');
-            // var p3 = new Player('SpiderMan', 'yellow', 'assets/images/spiderman.png');
-            // var p4 = new Player('Puh', 'blue', 'assets/images/puh.png');
-            // var field = new Field([p1, p2, p3, p4], square);
+                    this.domObj.innerHTML = result;
 
-            // var startGame = $(obj).find('#startGame');
+                    var domPlayers = document.getElementsByClassName('player');
 
-            // startGame.on('click', function() {
-            //     field.start();
-            // });
+                    for (var i = 0; i < domPlayers.length; i++) {
+                        domPlayers[i].addEventListener('click', function(_i, _f) {
+                            return function() {
+                                _f.players[_i].click(_i, _f);
+                            };
+                        }(i, _self));
+                    }
+                };
+
+                this.render = function() {
+                    var _self = this;
+
+                    var result = this.players.map(
+                        function(p, index) {
+                            return p.render(index);
+                        }
+                    ).join('');
+
+                    this.domObj.html(result);
+
+                    var domPlayers = document.getElementsByClassName('player');
+
+                    for (var i = 0; i < domPlayers.length; i++) {
+                        domPlayers[i].addEventListener('click', {
+                            handleEvent: this.players[i].click,
+                            field: _self
+                        });
+                    }
+                };
+
+                this.start = function() {
+                    if (!this.started) {
+                        var p_Id = Math.ceil(Math.random() * this.players.length) - 1;
+                        this.started = true;
+                        this.players[p_Id].getBall();
+                        mess.prepend('<div>--начнём с id = "' + p_Id + '</div>');
+                    }
+                    else {
+                        mess.prepend('<div>--Игра уже идет!!!!!!!!!!!!!!!!</div>');
+                    }
+                    console.log("начнём с id = " + p_Id);
+                    this.render();
+                }
+            }
+
+            var p1 = new Player('Cap', 'green', 'assets/images/cap.png');
+            var p2 = new Player('IronMan', 'red', 'assets/images/ironman.png');
+            var p3 = new Player('SpiderMan', 'yellow', 'assets/images/spiderman.png');
+            var p4 = new Player('Puh', 'blue', 'assets/images/puh.png');
+            var field = new Field([p1, p2, p3, p4], square);
+
+            var startGame = $(obj).find('#startGame');
+
+            startGame.on('click', function() {
+                field.start();
+            });
 
             callback();
         }

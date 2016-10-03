@@ -477,9 +477,34 @@ header:after {
 /--------------------game field--------------------------/
 /=======================================================*/
 
+#fields {
+	border: 2px solid green;
+	display: inline-block;
+	padding: 5px;
+}
+
+#infoGame {
+	border-collapse: collapse;
+}
+
+#infoGame td {
+	border: 1px solid #666;
+	text-align: center;
+	padding: 5px;
+}
+
+
+#editField, 
+#editField div {
+	border: 1px solid red;
+	margin: 5px;
+	min-width: 20px;
+	min-height: 10px;
+	text-align: center;
+}
+
 #console {
-	float: left;
-	padding: 20px;
+	float: right;
 }
 
 #info {

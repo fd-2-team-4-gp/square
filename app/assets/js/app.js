@@ -1,6 +1,5 @@
 var app = (function($, cont) {
     var config = {
-        url: 'https://api.backendless.com/v1/data/Users',
         id: 'DCE54221-04BE-2940-FF08-14B2BC0FFC00',
         key: 'E8FCB4B6-2D60-EA57-FF4B-2880988EE300',
         v: 'v1'
@@ -12,19 +11,6 @@ var app = (function($, cont) {
         w: ['-600px -63px', '-653px -63px', '-704px -63px', '-756px -63px']
     }
 
-    var userTokenIsValid = Backendless.UserService.isValidLogin();
-
-    if (userTokenIsValid) {
-        var currentUser = Backendless.UserService.getCurrentUser();
-        $('#user').html(currentUser.name + " " + currentUser.lastName);
-        $('#btnProfile, #btnField, #logIn').removeClass('hide');
-        $('#formAuto').addClass('hide');
-        $('#miniAvatar').css('background-position', coordMini[currentUser.gender][currentUser.avatar]);
-    }
-    else {
-        $('#btnProfile, #btnField, #logIn').addClass('hide');
-        $('#formAuto').removeClass('hide');
-    }
     $("#formAuto").on('submit', sendData);
 
     function sendData(e) {
@@ -126,8 +112,24 @@ var app = (function($, cont) {
                 initialized = true;
             }
 
-            this.state = {}
+            this.state = {};
+            this.conf=config;
             window.location.hash = window.location.hash || "#/";
+        },
+        getAvatar: function() {
+            var userTokenIsValid = Backendless.UserService.isValidLogin();
+
+            if (userTokenIsValid) {
+                var currentUser = Backendless.UserService.getCurrentUser();
+                $('#user').html(currentUser.name + " " + currentUser.lastName);
+                $('#btnProfile, #btnField, #logIn').removeClass('hide');
+                $('#formAuto').addClass('hide');
+                $('#miniAvatar').css('background-position', coordMini[currentUser.gender][currentUser.avatar]);
+            }
+            else {
+                $('#btnProfile, #btnField, #logIn').addClass('hide');
+                $('#formAuto').removeClass('hide');
+            }
         }
     };
 
