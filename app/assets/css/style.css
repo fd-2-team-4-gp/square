@@ -25,7 +25,8 @@ body {
 	margin: 0 auto;
 	width: 960px;
 }
-#pages.hid{
+
+#pages.hid {
 	display: none;
 }
 
@@ -38,7 +39,7 @@ body {
 	}
 }
 
-@media all and (max-width: 700px) {
+@media all and (max-width: 720px) {
 	nav {
 		margin-left: auto;
 		/*margin-right: auto;*/
@@ -610,10 +611,30 @@ header:after {
 /*=======================================================/
 /--------------------game field--------------------------/
 /=======================================================*/
-
+#field .container {
+		display: flex;
+		flex-direction: column;
+	}
+	#console {
+		text-align: center;
+		margin-top: 2em;
+		order: 1;
+	}
+	#square {
+		order: 2;
+		margin-top: 2em;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 2em;
+	}
+	#fields {
+		order: 3;
+		text-align: center;
+	}
+	
 #fields {
 	border: 2px solid green;
-	display: inline-block;
+	/*display: inline-block;*/
 	padding: 5px;
 }
 
@@ -636,14 +657,14 @@ header:after {
 	text-align: center;
 }
 
-#console {
-	float: right;
-}
+/*#console {*/
+/*	float: right;*/
+/*}*/
 
 #info {
 	font-size: 12px;
 	padding: 20px;
-	border: 1px dashed red;
+	/*border: 1px dashed red;*/
 	max-height: 200px;
 	overflow: hidden;
 }
@@ -735,3 +756,45 @@ header:after {
 	bottom: 20px;
 	z-index: 10;
 }
+/*кнопка Мяч*/
+	#console button {
+		font-weight: 600;
+		font-style: italic;
+		position: relative;
+		z-index: 1;
+		display: inline-block;
+		width: 5em;
+		height: 5em;
+		border-radius: 100%;
+		outline: none;
+		background: url('../images/ball1.png');
+		background-size: 5.2em;
+		background-position: center;
+		box-shadow: 0 1px rgba(0, 0, 0, .1) inset, 0 1px #fff;
+	}
+	
+	#console button:before {
+		left: 15%;
+		transform: rotate(315deg);
+	}
+	
+	#console button:hover {
+		background-image: url('../images/football.png');
+		animation: rotate 3s linear infinite forwards;
+		color: rgba(225, 225, 225, 0) ;
+	}
+	
+	@keyframes rotate {
+		100% {
+			transform: rotate(360deg);
+		}
+		
+	}
+
+@media all and (max-width: 720px) {
+	
+	
+	}
+	/**/
+	
+

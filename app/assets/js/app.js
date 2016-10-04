@@ -122,12 +122,12 @@ var app = (function($, cont) {
             if (userTokenIsValid) {
                 var currentUser = Backendless.UserService.getCurrentUser();
                 $('#user').html(currentUser.name + " " + currentUser.lastName);
-                $('#btnProfile, #btnField, #logIn').removeClass('hide');
+                $('#btnProfile, #btnField, #logIn, #litB').removeClass('hide');
                 $('#formAuto').addClass('hide');
                 $('#miniAvatar').css('background-position', coordMini[currentUser.gender][currentUser.avatar]);
             }
             else {
-                $('#btnProfile, #btnField, #logIn').addClass('hide');
+                $('#btnProfile, #btnField, #logIn, #litB').addClass('hide');
                 $('#formAuto').removeClass('hide');
             }
         }
