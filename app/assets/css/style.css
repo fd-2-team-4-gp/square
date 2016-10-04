@@ -16,7 +16,6 @@ body {
 	margin: .5em;
 	background: url(../images/main-fon.png);
 	/*background: url(../images/Asphalt.jpg);*/
-	
 	/*color: rgba(0, 0, 0, .7);*/
 	font-size: 100%;
 	/*position: relative;*/
@@ -26,12 +25,122 @@ body {
 	margin: 0 auto;
 	width: 960px;
 }
+#pages.hid{
+	display: none;
+}
+
+@media all and (max-width: 961px) {
+	.container {
+		width: 100%;
+		margin: 0;
+		/*padding-left: .5em;*/
+		/*padding-right: .5em;*/
+	}
+}
+
+@media all and (max-width: 700px) {
+	nav {
+		margin-left: auto;
+		/*margin-right: auto;*/
+		order: 2;
+	}
+	#autorization {
+		/*order: 1;*/
+		width: auto;
+		float: left;
+	}
+	header {
+		/*display: flex;*/
+		/*justify-content: space-between !important;*/
+		/*align-items: center;*/
+	}
+	#rules img {
+		float: none !important;
+		clear: both;
+		width: 100% !important;
+		height: auto !important;
+	}
+	.litB {
+		position: relative;
+		font-size: 1.5em;
+		display: inline-block !important;
+		width: 1.5em;
+		/*height: 2em;*/
+		/*line-height: 2.5em;*/
+		vertical-align: middle;
+		text-align: center;
+		text-decoration: none;
+		text-shadow: 0 -1px 1px #777;
+		color: #fff;
+		outline: none;
+		border: 2px solid #F64C2B;
+		border-radius: 5px;
+		box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+		background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+	}
+	.litB:active {
+		top: .1em;
+		left: .1em;
+		box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
+	}
+	#pages {
+		display: none;
+	}
+	.adapt {
+		padding-top: 55px !important;
+		display: block !important;
+		/*transition: 3s all;*/
+	}
+	.adapt li>button {
+		position: relative;
+		/*display: block;*/
+		float: none;
+		clear: both;
+		margin-right: 0;
+		width: 100%;
+		height: auto;
+		/*line-height: 2.5em;*/
+		vertical-align: middle;
+		text-align: center;
+		text-decoration: none;
+		text-shadow: none;
+		color: black;
+		outline: none;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 0;
+		box-shadow: none;
+		background: rgba(255, 255, 255, 0.3);
+		transition: 2s all;
+	}
+	.adapt>li {
+		display: block !important;
+		clear: both;
+		list-style-type: none;
+	}
+	.adapt {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.adapt li>button:active {
+		top: .1em;
+		left: .1em;
+		box-shadow: none;
+	}
+	.adapt li>button>a:hover {
+		background: rgba(255, 255, 255, 0.5);
+	}
+	.adapt li>button>a {
+		display: block;
+		width: 100%;
+		height: 100%;
+		color: black;
+		text-decoration: none;
+	}
+}
 
 .hide {
 	display: none !important;
 }
-
-
 
 input,
 button,
@@ -43,6 +152,10 @@ button,
 
 header nav {
 	float: left;
+}
+
+.litB {
+	display: none;
 }
 
 li>button {
@@ -63,6 +176,7 @@ li>button {
 	border-radius: 5px;
 	box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
 	background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+	transition: 2s all;
 }
 
 li>button:active {
@@ -71,7 +185,7 @@ li>button:active {
 	box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
 }
 
-li>button>a{
+li>button>a {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -92,6 +206,7 @@ li>button>a{
 .active {
 	color: black;
 }
+
 
 /*===========================================/
 /------------------rules---------------------/
@@ -115,6 +230,7 @@ li>button>a{
 	text-indent: 30px;
 }
 
+
 /*============================================/
 /-----------------profile---------------------/
 /============================================*/
@@ -122,6 +238,11 @@ li>button>a{
 #profile {
 	font-size: 18px;
 	padding: 30px 0;
+}
+
+#profile>div {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #profile:after,
@@ -165,7 +286,7 @@ header:after {
 #imgForAvatar {
 	display: block;
 	width: 100%;
-	height: 100%; 
+	height: 100%;
 	background: url('../images/avatars_full.png') no-repeat;
 	/*background-position: -1px -1px;*/
 	border-radius: 65px;
@@ -178,10 +299,11 @@ header:after {
 	float: left;
 	background: url('../images/avatars_full.png') no-repeat;
 }
+
 .logg {
 	float: right;
 }
- 
+
 #profile .avatar {
 	float: left;
 	text-align: center;
@@ -212,9 +334,8 @@ header:after {
 }
 
 .close:active {
-		background-color: rgba(0, 0, 0, .2);
+	background-color: rgba(0, 0, 0, .2);
 }
-
 
 .modal {
 	position: relative;
@@ -308,6 +429,12 @@ header:after {
 	font-size: 24px;
 }
 
+@media all and (max-width: 700px) {
+	#profile .container {
+		width: auto;
+	}
+}
+
 
 /*=======================================================/
 /--------------------registration------------------------/
@@ -396,11 +523,18 @@ header:after {
 	/*margin-left: auto;*/
 	/*margin-right: auto;*/
 }
-#formRegistr input[type="radio"]{
+
+#formRegistr input[type="radio"] {
 	margin-left: 10px;
 }
+
+
 /*#gender {*/
+
+
 /*	margin-top: 30px;*/
+
+
 /*} */
 
 
@@ -411,17 +545,19 @@ header:after {
 #autorization {
 	float: right;
 	/*margin-top: -1.5em;*/
-	border: 1px solid red;
+	/*border: 1px solid red;*/
+	font-style: italic;
 }
 
 #autorization label>input {
 	width: 8em;
-	border: 1px solid rgba(0,0,0,.2);
+	border: 1px solid rgba(0, 0, 0, .2);
 	border-radius: .5em;
 	margin: .3em;
 	padding: .5em;
 	cursor: auto;
 }
+
 #formAuto input[type="submit"],
 #logIn button {
 	width: 6em;
@@ -439,14 +575,15 @@ header:after {
 	background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
 }
 
-#logIn button>a{
+#logIn button>a {
 	/*display: block;*/
 	/*width: 100%;*/
 	/*height: 100%;*/
 	color: white;
 	text-decoration: none;
 }
-#logIn button{
+
+#logIn button {
 	height: 1.5em;
 	float: right;
 	margin-top: 0.3em;
@@ -463,7 +600,7 @@ header:after {
 	box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
 }
 
-#formAuto p{
+#formAuto p {
 	text-align: center;
 	padding-bottom: 0.7em;
 	padding-top: 0.7em;
@@ -490,8 +627,7 @@ header:after {
 	padding: 5px;
 }
 
-
-#editField, 
+#editField,
 #editField div {
 	border: 1px solid red;
 	margin: 5px;
@@ -524,6 +660,7 @@ header:after {
 .error {
 	border: 1.5px solid red;
 }
+
 .errMess {
 	font-size: smaller;
 }
