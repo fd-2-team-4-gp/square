@@ -14,11 +14,13 @@
 <body>
     <header class='container'>
         <nav>
-            <ul id="pages">
+            <div class="litB" id='litB'>&equiv;</div>
+            <ul id="pages" >
                 <li><button><a href="#/" data-src="assets/pages/index.html" data-js="assets/js/index.js">Правила</a></button></li>
                 <li id='btnProfile' class='hide'><button><a href="#/profile" data-src="assets/pages/profile.html" data-js="assets/js/profile.js">Профиль</a></button></li>
                 <li id='btnField' class='hide'><button><a href="#/field" data-src="assets/pages/field.html" data-js="assets/js/field.js">Поле</a></button></li>
             </ul>
+            
         </nav>
         <div id='autorization'>
             <form id='formAuto' class='hide'>
@@ -50,6 +52,11 @@
                 </div>
             </div>
         </div>
+        <ul id="pages" class='hid'>
+                <li><button><a href="#/" data-src="assets/pages/index.html" data-js="assets/js/index.js">Правила</a></button></li>
+                <li id='btnProfile' class='hide'><button><a href="#/profile" data-src="assets/pages/profile.html" data-js="assets/js/profile.js">Профиль</a></button></li>
+                <li id='btnField' class='hide'><button><a href="#/field" data-src="assets/pages/field.html" data-js="assets/js/field.js">Поле</a></button></li>
+        </ul>
     </header>
     <section class='container' id="app" data-pages="#pages, #formAuto"></section>
     <footer class='container'></footer>
@@ -57,6 +64,13 @@
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/backendless.min.js"></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" >
+         $('.litB').on('click', function() {
+            $("#pages.hid").toggleClass("adapt");
+            // alert(123);
+        })
+        
+    </script>
 </body>
 
 </html>
