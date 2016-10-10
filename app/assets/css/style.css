@@ -611,41 +611,60 @@ header:after {
 /*=======================================================/
 /--------------------game field--------------------------/
 /=======================================================*/
+
 #field .container {
-		display: flex;
-		flex-direction: column;
-	}
-	#console {
-		text-align: center;
-		margin-top: 2em;
-		order: 1;
-	}
-	#square {
-		order: 2;
-		margin-top: 2em;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 2em;
-	}
-	#fields {
-		order: 3;
-		text-align: center;
-	}
+	display: flex;
+	flex-direction: column;
+}
+
+#console {
+	text-align: center;
+	margin-top: 2em;
+	order: 1;
+}
+
+#square {
+	order: 2;
+	margin-top: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2em;
 	
+}
+
+
 #fields {
-	border: 2px solid green;
+	order: 3;
+	text-align: center;
+	height: 8em;
+	margin-top: 2em;
+	/*border: 2px solid green;*/
 	/*display: inline-block;*/
 	padding: 5px;
+	background-image: url('../images/grass_ball1.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: auto 100%
 }
+
+
 
 #infoGame {
 	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: 600;
+	
 }
 
 #infoGame td {
 	border: 1px solid #666;
 	text-align: center;
-	padding: 5px;
+	padding-left: 0.5em;
+	padding-right: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	
 }
 
 #editField,
@@ -657,15 +676,20 @@ header:after {
 	text-align: center;
 }
 
+
 /*#console {*/
+
+
 /*	float: right;*/
+
+
 /*}*/
 
 #info {
 	font-size: 12px;
 	padding: 20px;
 	/*border: 1px dashed red;*/
-	max-height: 200px;
+	max-height: 100px;
 	overflow: hidden;
 }
 
@@ -688,11 +712,15 @@ header:after {
 
 #square {
 	position: relative;
-	border: 10px dashed black;
+	border: 10px dashed gray;
 	box-shadow: 0 0 10px 0px black;
 	width: 400px;
 	height: 400px;
 	float: left;
+	background-image: url('../images/Asphalt1.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto 100%;
 }
 
 #square .player {
@@ -704,6 +732,7 @@ header:after {
 	position: absolute;
 	font-family: Arial;
 	font-size: 14px;
+
 }
 
 #square .green {
@@ -756,45 +785,45 @@ header:after {
 	bottom: 20px;
 	z-index: 10;
 }
+
+
 /*кнопка Мяч*/
-	#console button {
-		font-weight: 600;
-		font-style: italic;
-		position: relative;
-		z-index: 1;
-		display: inline-block;
-		width: 5em;
-		height: 5em;
-		border-radius: 100%;
-		outline: none;
-		background: url('../images/ball1.png');
-		background-size: 5.2em;
-		background-position: center;
-		box-shadow: 0 1px rgba(0, 0, 0, .1) inset, 0 1px #fff;
-	}
-	
-	#console button:before {
-		left: 15%;
-		transform: rotate(315deg);
-	}
-	
-	#console button:hover {
-		background-image: url('../images/football.png');
-		animation: rotate 3s linear infinite forwards;
-		color: rgba(225, 225, 225, 0) ;
-	}
-	
-	@keyframes rotate {
-		100% {
-			transform: rotate(360deg);
-		}
-		
-	}
 
-@media all and (max-width: 720px) {
-	
-	
-	}
-	/**/
-	
+#console button {
+	font-weight: 600;
+	font-style: italic;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	width: 5em;
+	height: 5em;
+	border-radius: 100%;
+	outline: none;
+	background: url('../images/ball1.png');
+	background-size: 5.2em;
+	background-position: center;
+	box-shadow: 0 1px rgba(0, 0, 0, .1) inset, 0 1px #fff;
+}
 
+#console button:before {
+	left: 15%;
+	transform: rotate(315deg);
+}
+
+#console button:hover {
+	background-image: url('../images/football.png');
+	animation: rotate 3s linear infinite forwards;
+	color: rgba(225, 225, 225, 0);
+	box-shadow: none;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media all and (max-width: 720px) {}
+
+
+/**/
