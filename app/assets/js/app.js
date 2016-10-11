@@ -143,6 +143,27 @@ var app = (function($, cont) {
             }
             }
             
+            $("#square").delegate("div", "click", function(e) {
+                        // console.log(fr);
+                        $("div[data-index]").each(function(i, el) {
+                            if(el == e.target){
+                                var index = el.getAttribute("data-index");
+                                console.log(index);
+                                var clickTo = "user"+index;
+                                console.log(clickTo);
+                                for(var key in users){
+                                    if(clickTo == key){
+                                    clickTo = users[key];
+                        
+                                    } 
+                    
+                                }console.log(clickTo);
+                                
+                                otrisovka(log.user1, clickTo);
+                            }
+                        })
+            })
+            
             // console.log(arguments);
             // var to = data.from;
             // var from = data.next;
@@ -188,73 +209,7 @@ var app = (function($, cont) {
             var dataQuery = new Backendless.DataQuery();
                 
             
-            
-            function postvlog (args){
-                args = args || {};
-                this.game = users.game;
-                this.from = args.from || users.start;
-                this.to = args.to || next;
-                
-            }
-            function postgoals (args){
-                this.goals1 = args.goals1;
-                this.goals2 = args.goals2;
-                this.goals3 = args.goals3;
-                this.goals4 = args.goals4;
-            };
-            function winnewpost(args){
-                this.winner = args.winner,
-                this.ended = args.ended
-            };
-            
-            
-            function errr(err){
-                console.log( "Error message - " + err.message );
-                console.log( "Error code - " + err.statusCode );
-            }
-            function requestLog(resp){
-                
-                console.log(resp);
-                // var startGame = true;
-
-                if(resp.to == log.user1){
-                    alert("Ваш ход! Кликайте,чтобы ударить!");
-                    $("#square").on("click", function(e) {
-                        $("div[data-index]").each(function(i, el) {
-                            // console.log($(el));
-                            // console.log(e.target);
-                            // console.log(el);
-                            if(el == e.target){
-                                var index = el.getAttribute("data-index");
-                                console.log(index);
-                                var clickTo = "user"+index;
-                                console.log(clickTo);
-                                for(var key in users){
-                                    if(clickTo == key){
-                                    clickTo = users[key];
-                        
-                                    } 
-                    
-                                }console.log(clickTo);
-                                app.render(log, clickTo)
-                                otrisovka(resp.to, clickTo);
-                            }
-                        })
-                    })
-                    return false;
-                } else{
-                    app.render(log, resp.to);
-                    var to = resp.next;
-                    var from = resp.to;
-                    for(var key in users){
-                    if(to == key){
-                        to = users[key];
-                    } 
-                }
-                    otrisovka(from, to);
-                }
-
-                    function otrisovka(from, to){
+            function otrisovka(from, to){
                     dataQuery.condition = "objectId = "+"'"+log.objectId+"'";
                     gameStorage.find( dataQuery ).then(function(data){
                     console.log(data);
@@ -266,15 +221,13 @@ var app = (function($, cont) {
                         winner = key;
                     } 
                     }
-                    
-                    
                     $("#goal1").text(game.goals1);
                     $("#goal2").text(game.goals2);
                     $("#goal3").text(game.goals3);
                     $("#goal4").text(game.goals4);
                     
-                    if(resp.goal){
-                    }
+                    // if(resp.goal){
+                    // }
                     
                     if(game.ended){
                         alert(winner);
@@ -284,6 +237,39 @@ var app = (function($, cont) {
                     }
                     });
                     }
+            function postvlog (args){
+                args = args || {};
+                this.game = users.game;
+                this.from = args.from || users.start;
+                this.to = args.to || null;
+                
+            }
+            function errr(err){
+                console.log( "Error message - " + err.message );
+                console.log( "Error code - " + err.statusCode );
+            }
+            function requestLog(resp){
+                console.log(resp);
+                
+                app.render(log, resp.to);
+                
+                if(resp.to == log.user1){
+                    alert("Ваш ход! Кликайте,чтобы ударить!");
+                    $("#square").trigger("click");
+                    return false;
+                } else{
+                    
+                    var to = resp.next;
+                    var from = resp.to;
+                    for(var key in users){
+                    if(to == key){
+                        to = users[key];
+                    } 
+                }
+                    otrisovka(from, to);
+                }
+
+                    
 
             }
             
@@ -312,6 +298,7 @@ var app = (function($, cont) {
         render: function(log, to){
             var square = $('#square');
             var mess = $('#info');
+            
 
             function Player(name, colour, avatar, id) {
                 var _self = this;
@@ -491,7 +478,15 @@ var app = (function($, cont) {
                                 console.log(el)
                                 el.getBall();
                                 mess.prepend('<div>--начнём с id = "' + el.id + '</div>');
-                            }
+                                
+                            } 
+                            // else {
+                            //     $(this.players).each(function(j, elem){
+                            //       if(elem.id == start){ 
+                            //             elem.getBall();
+                            //       }
+                            //     })
+                            // }
                         
                         
                         })
@@ -501,7 +496,7 @@ var app = (function($, cont) {
                     // }
                     // console.log("начнём с id = " + startUser);
                     
-                    this.render();
+                this.render();    
                 }
             }
             
