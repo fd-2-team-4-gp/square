@@ -213,12 +213,12 @@ var app = (function($, cont) {
             function otrisovka(from, to){
                     dataQuery.condition = "objectId = "+"'"+log.objectId+"'";
                     gameStorage.find( dataQuery ).then(function(data){
-                    // console.log(data);
+                    console.log(data);
                     var game = data.data[0];
                     var winner = game.winner;
                     
                     for(var key in log){
-                    if(winner == log[key]){
+                    if(winner == game[key]){
                         winner = key;
                     } 
                     }
@@ -240,7 +240,7 @@ var app = (function($, cont) {
                     }
             function postvlog (args){
                 args = args || {};
-                this.game = log.objectId;
+                this.game = args.game || log.objectId;
                 this.from = args.from || next;
                 this.to = args.to || null;
                 
