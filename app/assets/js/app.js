@@ -132,16 +132,17 @@ var app = (function($, cont) {
                 $('#formAuto').removeClass('hide');
             }
         },
-        successLog: function(users, log){
-            console.log(users);
+        successLog: function(log){
+            // console.log(users);
             console.log(log);
             
             var next = log.willStart;
-            for(var key in users){
+            for(var key in log){
                 if(next == key){
-                next = users[key];
+                next = log[key];
             }
             }
+            console.log(next);
             
             $("#square").delegate("div", "click", function(e) {
                         // console.log(fr);
@@ -151,9 +152,9 @@ var app = (function($, cont) {
                                 console.log(index);
                                 var clickTo = "user"+index;
                                 console.log(clickTo);
-                                for(var key in users){
+                                for(var key in log){
                                     if(clickTo == key){
-                                    clickTo = users[key];
+                                    clickTo = log[key];
                         
                                     } 
                     
@@ -212,12 +213,12 @@ var app = (function($, cont) {
             function otrisovka(from, to){
                     dataQuery.condition = "objectId = "+"'"+log.objectId+"'";
                     gameStorage.find( dataQuery ).then(function(data){
-                    console.log(data);
+                    // console.log(data);
                     var game = data.data[0];
                     var winner = game.winner;
                     
-                    for(var key in users){
-                    if(winner == users[key]){
+                    for(var key in log){
+                    if(winner == log[key]){
                         winner = key;
                     } 
                     }
@@ -230,7 +231,7 @@ var app = (function($, cont) {
                     // }
                     
                     if(game.ended){
-                        alert(winner);
+                        alert("Победа " + winner + "!");
                         return false;
                     } else{
                       loglog(from, to);  
@@ -239,8 +240,8 @@ var app = (function($, cont) {
                     }
             function postvlog (args){
                 args = args || {};
-                this.game = users.game;
-                this.from = args.from || users.start;
+                this.game = log.objectId;
+                this.from = args.from || next;
                 this.to = args.to || null;
                 
             }
@@ -261,11 +262,11 @@ var app = (function($, cont) {
                     
                     var to = resp.next;
                     var from = resp.to;
-                    for(var key in users){
+                    for(var key in log){
                     if(to == key){
-                        to = users[key];
+                        to = log[key];
                     } 
-                }
+                }console.log(to);
                     otrisovka(from, to);
                 }
 
@@ -278,7 +279,7 @@ var app = (function($, cont) {
                 
                 
                 var postLog = new postvlog({
-                        game: log.game,
+                        game: log.objectId,
                         from: from,
                         to: to
                 })
@@ -432,7 +433,7 @@ var app = (function($, cont) {
 
                     var domPlayers = document.getElementsByClassName('player');
                     
-                    console.log(domPlayers);
+                    // console.log(domPlayers);
                     
                     // $(this.players).each(function(i, el) {
                     //     // console.log(el);
@@ -475,7 +476,7 @@ var app = (function($, cont) {
                         // this.players[startUser].getBall();
                         $(this.players).each(function(i, el) {
                             if(el.id == to){
-                                console.log(el)
+                                
                                 el.getBall();
                                 mess.prepend('<div>--начнём с id = "' + el.id + '</div>');
                                 

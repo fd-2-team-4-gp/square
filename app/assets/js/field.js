@@ -17,7 +17,7 @@ app.currentModule = (function($) {
             // app.getAvatar();
             
         $(obj).find("#startGame").click(function(e){
-        var count = prompt('До скольки голов будем играть?', '5');            
+        // var count = prompt('До скольки голов будем играть?', '5');            
 
         function game (args){
             args = args || {};
@@ -27,44 +27,39 @@ app.currentModule = (function($) {
         
         Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
         Backendless.enablePromises();
-        var gameStorage = Backendless.Persistence.of("game");
+        // var gameStorage = ;
         
         
         function successGame(data){
-            // console.log(data);
-            var startGame = false;
+            console.log(data);
+            // var startGame = false;
             
-            var users = {
-                user1: data.user1,
-                user2: data.user2,
-                user3: data.user3,
-                user4: data.user4,
-                game: data.objectId,
-                maxGoal: data.maxGoal,
-                ended: data.ended
-            };
-            var goals = {
-                goals1: data.goals1,
-                goals2: data.goals2,
-                goals3: data.goals3,
-                goals4: data.goals4
-            }
+            // var users = {
+            //     user1: data.user1,
+            //     user2: data.user2,
+            //     user3: data.user3,
+            //     user4: data.user4,
+            //     game: data.objectId,
+            //     maxGoal: data.maxGoal,
+            //     ended: data.ended
+            // };
+            
 
             var start = data.willStart;
             
-            for(var key in users){
+            for(var key in data){
                 if(start == key){
-                    start = users[key];
+                    start = data[key];
                 }
             }
-            users.start = start;
-            var to = users.start;
+            // users.start = start;
+            var to = start;
             
-            var field = $('<div id="' + gameData.objectId + '">поле ' + '</div>');
-                $('#resultFields').html('');
-                $('#resultFields').append(field);
+            // var field = $('<div id="' + gameData.objectId + '">поле ' + '</div>');
+            //     $('#resultFields').html('');
+            //     $('#resultFields').append(field);
             app.render(data, to);
-            app.successLog(users, data);
+            app.successLog(data);
             
         }
         
@@ -76,12 +71,12 @@ app.currentModule = (function($) {
         }
         
         var gameStart = new game ({
-            maxGoal: count
+            maxGoal: 1
         });
         
-        var gameData = gameStorage.save(gameStart).then(successGame).catch(err);
+        Backendless.Persistence.of("game").save(gameStart).then(successGame).catch(err);
         // })
-            var id = Backendless.UserService.getCurrentUser().objectId;
+            // var id = Backendless.UserService.getCurrentUser().objectId;
             //показать все поля, созданные текущим игроком       
             
             // $(obj).find("#showAllFields").on('click', function(e) {
@@ -128,12 +123,12 @@ app.currentModule = (function($) {
                 
             });
 
-            function showNewField(data) {
+            // function showNewField(data) {
 
-                var field = $('<div id="' + data.objectId + '">поле ' + data.name + '</div>');
-                $('#resultFields').append(field);
+            //     var field = $('<div id="' + data.objectId + '">поле ' + data.name + '</div>');
+            //     $('#resultFields').append(field);
 
-            }
+            // }
         
             
 
