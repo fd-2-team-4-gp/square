@@ -144,16 +144,16 @@ var app = (function($, cont) {
                 next = log[nextkey];
             }
             }
-            console.log(next);
+            
             
             $("#square").delegate("div", "click", function(e) {
                         // console.log(fr);
                         $("div[data-index]").each(function(i, el) {
                             if(el == e.target){
                                 var index = el.getAttribute("data-index");
-                                console.log(index);
+                                
                                 var clickTo = "user"+index;
-                                console.log(clickTo);
+                                
                                 for(var clickkey in log){
                                     if(clickTo == clickkey){
                                     clickTo = log[clickkey];
@@ -178,7 +178,7 @@ var app = (function($, cont) {
             function otrisovka(from, to){
                     dataQuery.condition = "objectId = "+"'"+log.objectId+"'";
                     gameStorage.find( dataQuery ).then(function(data){
-                    console.log(data);
+                    
                     var game = data.data[0];
                     console.log(game);
                     var winner = game.winner;
@@ -188,7 +188,7 @@ var app = (function($, cont) {
                         winner = winkey;
                     } 
                     }
-                    console.log(winner);
+                    
                     $("#goal1").text(game.goals1);
                     $("#goal2").text(game.goals2);
                     $("#goal3").text(game.goals3);
@@ -233,7 +233,7 @@ var app = (function($, cont) {
                         if(to == tokey){
                         to = log[tokey];
                         } 
-                    }console.log(to);
+                    }
                     otrisovka(from, to);
                 }
 
@@ -253,9 +253,9 @@ var app = (function($, cont) {
                 
                 console.log(postLog);
                 
-                // setTimeout(function(){
+                setTimeout(function(){
                     Backendless.Persistence.of("log").save(postLog).then(requestLog).catch(errr);
-                // },1000);
+                },1000);
             }
             loglog();
         },
