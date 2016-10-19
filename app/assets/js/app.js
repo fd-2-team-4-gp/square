@@ -31,7 +31,9 @@ var app = (function($, cont) {
         }
 
         function gotError(err) {
-            console.log("авторизация не удалась!");
+            alert("Авторизация не удалась! Попробуйте снова.");
+            $("#login").val("");
+            $("#password").val("");
         }
     };
 
@@ -137,9 +139,9 @@ var app = (function($, cont) {
             console.log(log);
             
             var next = log.willStart;
-            for(var key in log){
-                if(next == key){
-                next = log[key];
+            for(var nextkey in log){
+                if(next == nextkey){
+                next = log[nextkey];
             }
             }
             console.log(next);
@@ -152,9 +154,9 @@ var app = (function($, cont) {
                                 console.log(index);
                                 var clickTo = "user"+index;
                                 console.log(clickTo);
-                                for(var key in log){
-                                    if(clickTo == key){
-                                    clickTo = log[key];
+                                for(var clickkey in log){
+                                    if(clickTo == clickkey){
+                                    clickTo = log[clickkey];
                         
                                     } 
                     
@@ -165,45 +167,8 @@ var app = (function($, cont) {
                         })
             })
             
-            // console.log(arguments);
-            // var to = data.from;
-            // var from = data.next;
-
-            //     console.log(to);
-            //     for(var key in users){
-            //         if(from == key){
-            //             from = users[key];
-            //         }
-            //     }
-            // if(log.goal){
-            //     Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-            //     var numb = log.goal.match(/[0-9]/g);
-            //     sendGame["'goal'"]
-                
-            //     backGameStorage.save()
-            // }
-            // function daTa(data){
-            //     console.log(data.data);
-            // }
-            // Backendless.enablePromises();   
-            // console.log(users);
-            // $.when(collection).then(daTa);
-            // console.log();
-            // console.log(log);
-            
-            
             Backendless.initApp(config.id, config.key, config.v);
             Backendless.enablePromises();
-            
-            // function currentGame(){
-            
-            
-            
-            // }
-            // function findGame(data){
-                
-            // }
-            // }
             
             
             var gameStorage = Backendless.Persistence.of("game");
@@ -215,13 +180,15 @@ var app = (function($, cont) {
                     gameStorage.find( dataQuery ).then(function(data){
                     console.log(data);
                     var game = data.data[0];
+                    console.log(game);
                     var winner = game.winner;
                     
-                    for(var key in log){
-                    if(winner == game[key]){
-                        winner = key;
+                    for(var winkey in game){
+                    if(winner == game[winkey]){
+                        winner = winkey;
                     } 
                     }
+                    console.log(winner);
                     $("#goal1").text(game.goals1);
                     $("#goal2").text(game.goals2);
                     $("#goal3").text(game.goals3);
@@ -250,9 +217,9 @@ var app = (function($, cont) {
                 console.log( "Error code - " + err.statusCode );
             }
             function requestLog(resp){
-                console.log(resp);
                 
                 app.render(log, resp.to);
+                
                 
                 if(resp.to == log.user1){
                     alert("Ваш ход! Кликайте,чтобы ударить!");
@@ -262,11 +229,11 @@ var app = (function($, cont) {
                     
                     var to = resp.next;
                     var from = resp.to;
-                    for(var key in log){
-                    if(to == key){
-                        to = log[key];
-                    } 
-                }console.log(to);
+                    for(var tokey in log){
+                        if(to == tokey){
+                        to = log[tokey];
+                        } 
+                    }console.log(to);
                     otrisovka(from, to);
                 }
 
@@ -286,235 +253,33 @@ var app = (function($, cont) {
                 
                 console.log(postLog);
                 
-                
-                
-                setTimeout(function(){
+                // setTimeout(function(){
                     Backendless.Persistence.of("log").save(postLog).then(requestLog).catch(errr);
-                },1000);
-                
-                 
+                // },1000);
             }
             loglog();
         },
         render: function(log, to){
-            var square = $('#square');
-            var mess = $('#info');
-            
-
-            function Player(name, colour, avatar, id) {
-                var _self = this;
-
-                this.avatar = avatar;
-                this.name = name;
-                this.colour = colour;
-                this.id = id;
-                this.count = 0;
-                this.goal = 0;
-
-                this.punch = function() {
-                    
-                    // $(field.players.id).each(function(i, el) {
-                    //     if($(el) == from){
-                    //         _self.ball = false;
-                    //     }
-                    // })
-                    // $(field.players.id).each(function(i, el) {
-                    //     if($(el) == to){
-                    //         // field.started = false;
-                    //         // console.log(el);
-                            
-                    //     }
-                    // })
-
-                    // if (this.ball) {
-                    //     var playerId = Math.ceil(Math.random() * this.players.length) - 1;
-                    //     this.ball = false;
-
-                    //     if (Math.random() * 2 > 1) {
-                    //         field.players[playerId].addGoal();
-                    //         this.addCount();
-                    //         field.started = false;
-                    //     }
-                    //     else {
-                    //         field.players[playerId].getBall();
-                    //     }
-                    // }
-                }
-                this.ball = false;
-
-                this.getBall = function() {
-                    this.ball = true
-                };
-
-                this.addCount = function() {
-                    this.count++
-                };
-
-                this.addGoal = function() {
-                    this.goal++
-                };
-
-                this.render = function(index) {
-                    var ball = '';
-
-                    if (this.ball) {
-                        ball = '<div class="ball"></div>';
-                    }
-                    var ind = index + 1;
-                    
-                    var result = [
-                        '<div class="player ',
-                        this.colour,
-                        '" data-index="',
-                        ind,
-                        '"><img src="',
-                        this.avatar,
-                        '"><br>',
-                        this.name,
-                        ball,
-                        '</div>'
-                    ];
-
-                    return result.join('');
-                };
-
-                this.clickW = function(obj) {
-                    console.log( obj);
-                    obj = obj || this.field;
-                    console.log(this.field);
-
-                    obj.players.forEach(function(p) {
-                        p.ball = false;
-                    });
-
-                    _self.getBall();
-                    obj.render2();
-                    mess.innerHTML = 'мяч у меня!' + _self.name;
-                };
-            };
-
-            function Field(players, obj) {
-                this.players = players;
-                this.domObj = obj;
-                // this.started = false;
-
-                this.render2 = function() {
-                    var _self = this;
-                    var result = this.players.map(
-                        function(p, index) {
-                            return p.render(index);
-                        }
-                    ).join('');
-
-                    this.domObj.innerHTML = result;
-
-                    var domPlayers = document.getElementsByClassName('player');
-                    
-                    for (var i = 0; i < domPlayers.length; i++) {
-                        domPlayers[i].addEventListener('click', function(_i, _f) {
-                            return function() {
-                                _f.players[_i].clickW(_i, _f);
-                            };
-                        }(i, _self));
-                    }
-                };
-
-                this.render = function() {
-                    var _self = this;
-
-                    var result = this.players.map(
-                        function(p, index) {
-                            return p.render(index);
-                        }
-                    ).join('');
-
-                    this.domObj.html(result);
-                    
-
-                    var domPlayers = document.getElementsByClassName('player');
-                    
-                    // console.log(domPlayers);
-                    
-                    // $(this.players).each(function(i, el) {
-                    //     // console.log(el);
-                    //     if(el.id == to){
-                    //         console.log(el);
-                    //         // var ev = el.click;
-                            
-                    //         field.players.forEach(function(p) {
-                    //             p.ball = false;
-                    //         });
-                    //         el.getBall();
-                    //         field.render2();
-                    //         // $(el[i]).click;
-                    //     }
-                    // })
-                    // $(field.players.id).each(function(i, el) {
-                    //     if($(el) == to){
-                    //         // field.started = false;
-                    //         console.log(el);
-                            
-                    //     }
-                    // })
-                    
-
-                    // for (var i = 0; i < domPlayers.length; i++) {
-                    //     domPlayers[i].addEventListener('click', {
-                    //         handleEvent: this.players[i].click,
-                    //         field: _self
-                    //     });
-                    // }
-                    
-                };
-
-                this.start = function() {
-                    // console.log(startGame);
-                    // if (!startGame) {
-                        // var p_Id = Math.ceil(Math.random() * this.players.length) - 1;
-                        // started = true;
-                        
-                        // this.players[startUser].getBall();
-                        $(this.players).each(function(i, el) {
-                            if(el.id == to){
-                                
-                                el.getBall();
-                                mess.prepend('<div>--начнём с id = "' + el.id + '</div>');
-                                
-                            } 
-                            // else {
-                            //     $(this.players).each(function(j, elem){
-                            //       if(elem.id == start){ 
-                            //             elem.getBall();
-                            //       }
-                            //     })
-                            // }
-                        
-                        
-                        })
-                    // }
-                    // else {
-                    //     mess.prepend('<div>--Игра уже идет!</div>');
-                    // }
-                    // console.log("начнём с id = " + startUser);
-                    
-                this.render();    
+            var us;
+            var sq = $("#square").offset();
+            for (var bar in log){
+                if(log[bar] == to){
+                    us = bar;
                 }
             }
+            for (var jar in log.ballCoords){
+                    
+                    if(jar == us){
+                        
+                        $("#ball").offset({
+                            top: sq.top + log.ballCoords[jar].top,
+                            left: sq.left + log.ballCoords[jar].left
+                        })
+                    }
+            }
             
-            var p1 = new Player('Cap', 'green', 'assets/images/cap.png', log.user1);
-            var p2 = new Player('IronMan', 'red', 'assets/images/ironman.png', log.user2);
-            var p3 = new Player('SpiderMan', 'yellow', 'assets/images/spiderman.png', log.user3);
-            var p4 = new Player('Puh', 'blue', 'assets/images/puh.png', log.user4);
-            var pl = [p1, p2, p3, p4];
             
-            var field = new Field([p1, p2, p3, p4], square);
-            
-            
-            field.start();
 
-            // var startGame = $('#startGame').on('click', function() {
-                
-            // });
         }
         
     };

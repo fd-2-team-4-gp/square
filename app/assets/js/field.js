@@ -14,9 +14,12 @@ app.currentModule = (function($) {
                 // return false;
             }
             
-            // app.getAvatar();
+            app.getAvatar();
             
         $(obj).find("#startGame").click(function(e){
+            $("div[class*=player]").detach();
+            $("#ball").detach();
+            $("#square").undelegate("div", "click");
         // var count = prompt('До скольки голов будем играть?', '5');            
 
         function game (args){
@@ -32,33 +35,117 @@ app.currentModule = (function($) {
         
         function successGame(data){
             console.log(data);
-            // var startGame = false;
             
-            // var users = {
-            //     user1: data.user1,
-            //     user2: data.user2,
-            //     user3: data.user3,
-            //     user4: data.user4,
-            //     game: data.objectId,
-            //     maxGoal: data.maxGoal,
-            //     ended: data.ended
-            // };
+            function Player(name, colour, avatar, id) {
+                
+                this.avatar = avatar;
+                this.name = name;
+                this.colour = colour;
+                this.id = id;
+                
+                
+                this.render = function(index) {
+                    // var ball = '';
+
+                    // if (this.ball) {
+                    //     ball = '<div class="ball"></div>';
+                    // }
+                    var ind = index + 1;
+                    
+                    var result = [
+                        '<div class="player ',
+                        this.colour,
+                        '" data-index="',
+                        ind,
+                        '"><img src="',
+                        this.avatar,
+                        '"><br>',
+                        this.name,
+                        '</div>'
+                    ];
+
+                    return result.join('');
+                };
+                
+            }
+            var p1 = new Player('Cap', 'green', 'assets/images/cap.png', data.user1);
+            var p2 = new Player('IronMan', 'red', 'assets/images/ironman.png', data.user2);
+            var p3 = new Player('SpiderMan', 'yellow', 'assets/images/spiderman.png', data.user3);
+            var p4 = new Player('Puh', 'blue', 'assets/images/puh.png', data.user4);
+            
+            var players = [p1,p2,p3,p4];
+            var ballCoords = {
+                user1: {
+                    top: 160,
+                    left: 160
+                        },
+                user2: {
+                    top: 160,
+                    left: 360
+                },
+                user3: {
+                    top: 360,
+                    left: 160
+                },
+                user4: {
+                    top: 360,
+                    left: 360
+                }
+            };
+            data.ballCoords = ballCoords;
+            console.log(data);
+            
+            function creat(){
+                var result = players.map(
+                        function(p, index) {
+                            return p.render(index);
+                        }
+                    ).join('');
+                var ball = $("<div id='ball'></div>");
+                $("#square").append(result, ball);
+                
+                // $("div[class*=user]").each(function(i, el) {
+                // // //   if($(el).hasClass('"'+data.willStart+'"')){
+                          
+                // // //   }
+                // console.log($(el).position());
+                // })
+                var sq = $("#square").offset();
+                
+                // var top = sq.top + ballCoords.user1.top;
+                // var left = sq.left + ballCoords.user1.left;
+                // $("#ball").offset({
+                //     top: sq.top + ballCoords.user1.top,
+                //     left: left
+                //         })
+                for (var key in ballCoords){
+                    
+                    if(key == data.willStart){
+                        
+                        $("#ball").offset({
+                            top: sq.top + ballCoords[key].top,
+                            left: sq.left + ballCoords[key].left
+                        })
+                    }
+                }
+                
+                
+            }
+            creat();
+            
+            
+           
+            
+            
+            
+            
+            
             
 
-            var start = data.willStart;
             
-            for(var key in data){
-                if(start == key){
-                    start = data[key];
-                }
-            }
-            // users.start = start;
-            var to = start;
             
-            // var field = $('<div id="' + gameData.objectId + '">поле ' + '</div>');
-            //     $('#resultFields').html('');
-            //     $('#resultFields').append(field);
-            app.render(data, to);
+            
+            // app.render(data, to);
             app.successLog(data);
             
         }
@@ -76,6 +163,12 @@ app.currentModule = (function($) {
         
         Backendless.Persistence.of("game").save(gameStart).then(successGame).catch(err);
         // })
+        
+        // var field = $('<div id="' + gameData.objectId + '">поле ' + '</div>');
+            //     $('#resultFields').html('');
+            //     $('#resultFields').append(field);
+            
+            
             // var id = Backendless.UserService.getCurrentUser().objectId;
             //показать все поля, созданные текущим игроком       
             

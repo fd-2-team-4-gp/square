@@ -16,7 +16,7 @@
     "url": "https://github.com/alexeikasiuk/square/issues"
   },
   "homepage": "https://github.com/alexeikasiuk/square#readme",
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "^6.5.0",
     "bower": "^1.7.9",
     "browser-sync": "^2.16.0",
