@@ -20,7 +20,7 @@ app.currentModule = (function($) {
             $("div[class*=player]").detach();
             $("#ball").detach();
             $("#square").undelegate("div", "click");
-        // var count = prompt('До скольки голов будем играть?', '5');            
+        // var count = prompt('До скольки голов будем играть?', '5')            
 
         function game (args){
             args = args || {};
